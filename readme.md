@@ -26,19 +26,19 @@ $ echo $JAVA_HOME
 In Windows
   
 ```
-> cd elasticsearch-2.1.0/bin
+> cd elasticsearch-x.x.x/bin
 > elasticsearch
 ```
 In Linux
 ```
-$ cd elasticsearch-2.1.0/bin
+$ cd elasticsearch-x.x.x/bin
 $ ./elasticsearch
 ```
  </div>
  
  اگر در ویندوز با خطای مربوط به JAVA_HOME مواجه شدید در بخش environment variables ها Path مروبط به jre نصب شده را قرار دهید.
  <br>
- قدم چهارم: پورت پیش‌فرض برای Elasticsearch، 9200 می‌باشد که اگر در browser خود http://localhost:9200 را وارد کنید عبارت json زیر را مشاهده خواهید کرد.(برای تغییر پورت باید مقدار http.port را در فایل elasticsearch.yml تغییر دهید.
+ قدم چهارم: پورت پیش‌فرض برای Elasticsearch، 9200 می‌باشد که اگر در browser خود http://localhost:9200 را وارد کنید عبارت json زیر را مشاهده خواهید کرد.(برای تغییر پورت باید مقدار http.port را در فایل elasticsearch.yml تغییر دهید.)
   <div align="left" dir = "ltr">
 In Windows
   
