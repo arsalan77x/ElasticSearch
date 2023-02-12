@@ -368,9 +368,10 @@ GET /musics/_search
 ```
 </div>
  برای اطلاعات بیشتر در این موضوع به https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket.html مراجعه کنید.
+ 
  ### Pipeline
- 
- 
+Pipeline aggregation
+ به جای کار کردن بر document ها روی خروجی‌های دیگر aggregation ها اعمال می‌شود.
 ## Query
  از مهمترین بخش‌های کار با پایگاه‌داده‌ها Query زدن می‌باشد که در elasticsearch از دو نوع leaf query و compound query است.
  ![My Image](queries.png)
