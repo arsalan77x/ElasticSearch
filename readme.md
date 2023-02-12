@@ -295,8 +295,30 @@ GET student,teacher/_search?q=first_name:ali&size=20
 ```
 </div>
  
+## Aggregation
+ به معنای تجمیع کردن است و به خلاصه‌سازی داده ها در سه نوع metric، statistics و analytics می‌پردازد. برای درک بهتر مثال های زیر را در نظر بگیرید.
+ * میانگین نمرات دانشجویان.
+ * تعداد فیلم‌های تاریخی در پایگاه‌داده.
+ * میانگین بار زمانی روی سیستم.
+ مثلا در پاسخ به سوال اول از aggregation average که از نوع metric است استفاده می‌کنیم. در ادامه هر کدام از سه بخش را با مثال توضیح می‌دهیم.
+ ### metric
+ فرض کنید یک index به نام امتحان داریم و می‌خواهیم به search api آن قابلیت های چون میانگین، حداکثر یا حداقل گرفتن، مجموع گرفتن و ... را به آن اضافه کنیم. دستور زیر این قابلیت را به ما می‌دهد که هر بار که درخواست search فرستادیم میانگین نمرات هم در پاسخ ارسال شود.
  
-
+   <div align="left" dir = "ltr">
+ 
+```		
+POST /exams/_search?size=0
+{
+  "aggs": {
+    "avg_grade": { "avg": { "field": "grade" } }
+  }
+}
+```
+</div>
+ 
+ برای آشنایی با تمامی امکانات metric aggregation به سایت https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics.html مراجعه کنید.
+ 
+ 
 ## Query
  از مهمترین بخش‌های کار با پایگاه‌داده‌ها Qiery زدن است که در elasticsearch از دو نوع leaf query و compound query است.
  ![My Image](queries.png)
