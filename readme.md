@@ -306,7 +306,9 @@ GET student,teacher/_search?q=first_name:ali&size=20
  * میانگین بار زمانی روی سیستم.
  <br>
  مثلا در پاسخ به سوال اول از aggregation average که از نوع metric است استفاده می‌کنیم. در ادامه هر کدام از سه بخش را با مثال توضیح می‌دهیم.
- ### metric
+ 
+### Metric
+ 
  فرض کنید یک index به نام امتحان داریم و می‌خواهیم به search api آن قابلیت‌هایی چون میانگین، حداکثر یا حداقل گرفتن، مجموع گرفتن و ... را اضافه کنیم. دستور زیر این قابلیت را به ما می‌دهد که هر بار که درخواست search فرستادیم میانگین نمرات هم در پاسخ ارسال شود.
  
    <div align="left" dir = "ltr">
@@ -371,25 +373,30 @@ GET /musics/_search
  برای اطلاعات بیشتر در این موضوع به https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket.html مراجعه کنید.
  
  ### Pipeline
-Pipeline aggregation
- به جای کار کردن بر document ها روی خروجی‌های دیگر aggregation ها اعمال می‌شود. این روز از یک property به نام buckets_path استفاده می‌کند تا به نتایج دیگر aggregation ها دسترسی داشته باشدو سینتکس مشخصی دارد.
+ در Pipeline aggregation  به جای کار کردن بر document ها روی خروجی‌های دیگر aggregation ها اعمال می‌شود. این روز از یک property به نام buckets_path استفاده می‌کند تا به نتایج دیگر aggregation ها دسترسی داشته باشدو سینتکس مشخصی دارد.
  
- <div align="left" dir = "ltr">
+ 
+   <div align="left" dir = "ltr">
+ 
 ```		
 buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METRIC>];
-
 ```
 </div>
  
+
+ 
  * نام فیلد aggregation مدنظر را در <AGG_NAME> قرار داده.
- *از کاراکتر < برای AGG_SEPARATOR استفاده شده.
+ * از کاراکتر < برای AGG_SEPARATOR استفاده شده.
  * قسمت METRIC_SEPARATOR برای جدا کردن aggregation از metric کاربرد دارد.
  * و در نهایت <METRIC> در مواقعی که چند مقداره باشد.
-  <br>
+<br>
   در مثال زیر دو bucket aggregation داریم که یک pipeline در انتهای آن تعریف می‌شود.
-  <div align="left" dir = "ltr">
-```		 
-  "aggs": {
+  
+  
+   <div align="left" dir = "ltr">
+ 
+```
+ "aggs": {
     "number_of_bytes": {
       "histogram": {
         "field": "bytes",
@@ -408,11 +415,17 @@ buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METR
         "buckets_path": "number_of_bytes>sum_total_memory"
       }
     }
- ```
-</div>
-  
+```
+</div>  
+
 ## Query
  از مهمترین بخش‌های کار با پایگاه‌داده‌ها Query زدن می‌باشد که در elasticsearch از دو نوع leaf query و compound query است.
  ![My Image](queries.png)
+    
+## منابع
+* https://www.elastic.co/guide/en/elasticsearch/reference/current/elasticsearch-intro.html
+* https://www.edureka.co/blog/elasticsearch-tutorial/
+* https://www.tutorialspoint.com/elasticsearch/elasticsearch_aggregations.htm
+* https://stackoverflow.com/questions/15694724/shards-and-replicas-in-elasticsearch
  
 </div>
