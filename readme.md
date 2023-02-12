@@ -280,4 +280,5 @@ GET _nodes/usage
  
  ## Query
  از مهمترین بخش‌های کار با پایگاه‌داده‌ها Qiery زدن است که در elasticsearch از دو نوع leaf query و compound query است.
+ ![My Image](queries.png)
 </div>
