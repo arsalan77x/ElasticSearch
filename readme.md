@@ -323,12 +323,56 @@ POST /exams/_search?size=0
  برای آشنایی با تمامی امکانات metric aggregation به سایت https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics.html مراجعه کنید.
  
  ### Bucket
+  این نوع aggregation به محاسبه‌ی کممیت‌ها نمی‌پردازد و درواقع یک bucket یا ظرفی از document های ما می‌شود. به عنوان مثال اگر ما index مربوط به یک سری موزیک داشته باشیم که هر کدام ژانر مشخصی دارند و می‌خواهیم با یک درخواست GET بقهمیم از هر ژانر چند موسیقی وجود دارد. دقت کنید که می‌توانستیم از متد POST استفاده کنیم و این فیلد را در index ایجاد کنیم ولی در این مثال نیازی نیست چون بار اضافی است.
  
+  <div align="left" dir = "ltr">
+ 
+```		
+GET /musics/_search
+{
+  "aggs": {
+    "genres": {
+      "terms": { "field": "genre" }
+    }
+  }
+}
+```
+</div>
+ در ابتدا مشخص کردیم که می‌خواهیم یک aggregation داشته باشیم و فیلد genres اضافه شود که terms مانند avg در قسمت قبل از زیرمتدهای Bucket aggregation است، بعد هم مشخص می‌کنیم که چه فیلدی از index مد نظر باید بررسی شود. خروجی به شکل زیر می‌شود.
+  <div align="left" dir = "ltr">
+ 
+```		
+{
+  ...
+  "aggregations": {
+    "genres": {
+      "doc_count_error_upper_bound": 0,   
+      "sum_other_doc_count": 0,           
+      "buckets": [                        
+        {
+          "key": "electronic",
+          "doc_count": 6
+        },
+        {
+          "key": "rock",
+          "doc_count": 3
+        },
+        {
+          "key": "jazz",
+          "doc_count": 2
+        }
+      ]
+    }
+  }
+}
+```
+</div>
+ برای اطلاعات بیشتر در این موضوع به https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket.html مراجعه کنید.
  ### Pipeline
  
  
 ## Query
- از مهمترین بخش‌های کار با پایگاه‌داده‌ها Qiery زدن است که در elasticsearch از دو نوع leaf query و compound query است.
+ از مهمترین بخش‌های کار با پایگاه‌داده‌ها Query زدن می‌باشد که در elasticsearch از دو نوع leaf query و compound query است.
  ![My Image](queries.png)
  
 </div>
