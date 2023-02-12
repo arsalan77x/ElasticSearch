@@ -423,10 +423,11 @@ buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METR
  ![My Image](queries.png)
     
 ## منابع
-   <div align="left" dir = "ltr">
-* https://www.elastic.co/guide/en/elasticsearch/reference/current/elasticsearch-intro.html
-* https://www.edureka.co/blog/elasticsearch-tutorial/
-* https://www.tutorialspoint.com/elasticsearch/elasticsearch_aggregations.htm
-* https://stackoverflow.com/questions/15694724/shards-and-replicas-in-elasticsearch
-</div> 
+
+    
 </div>
+    
+*  https://www.elastic.co/guide/en/elasticsearch/reference/current/elasticsearch-intro.html
+*  https://www.edureka.co/blog/elasticsearch-tutorial/
+*  https://www.tutorialspoint.com/elasticsearch/elasticsearch_aggregations.htm
+*  https://stackoverflow.com/questions/15694724/shards-and-replicas-in-elasticsearch
