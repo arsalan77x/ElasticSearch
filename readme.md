@@ -372,7 +372,45 @@ GET /musics/_search
  
  ### Pipeline
 Pipeline aggregation
- به جای کار کردن بر document ها روی خروجی‌های دیگر aggregation ها اعمال می‌شود.
+ به جای کار کردن بر document ها روی خروجی‌های دیگر aggregation ها اعمال می‌شود. این روز از یک property به نام buckets_path استفاده می‌کند تا به نتایج دیگر aggregation ها دسترسی داشته باشدو سینتکس مشخصی دارد.
+ 
+ <div align="left" dir = "ltr">
+```		
+buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METRIC>];
+
+```
+</div>
+ 
+ * نام فیلد aggregation مدنظر را در <AGG_NAME> قرار داده.
+ *از کاراکتر < برای AGG_SEPARATOR استفاده شده.
+ * قسمت METRIC_SEPARATOR برای جدا کردن aggregation از metric کاربرد دارد.
+ * و در نهایت <METRIC> در مواقعی که چند مقداره باشد.
+  <br>
+  در مثال زیر دو bucket aggregation داریم که یک pipeline در انتهای آن تعریف می‌شود.
+  <div align="left" dir = "ltr">
+```		 
+  "aggs": {
+    "number_of_bytes": {
+      "histogram": {
+        "field": "bytes",
+        "interval": 10000
+      },
+      "aggs": {
+        "sum_total_memory": {
+          "sum": {
+            "field": "phpmemory"
+          }
+        }
+      }
+    },
+    "sum_copies": {
+      "sum_bucket": {
+        "buckets_path": "number_of_bytes>sum_total_memory"
+      }
+    }
+ ```
+</div>
+  
 ## Query
  از مهمترین بخش‌های کار با پایگاه‌داده‌ها Query زدن می‌باشد که در elasticsearch از دو نوع leaf query و compound query است.
  ![My Image](queries.png)
