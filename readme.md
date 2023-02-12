@@ -75,12 +75,16 @@ cd kibana-7.0.0-linux-x86_64/
  
  ## مثال ساده
  در اولین قدم می‌خواهیم populate کردن این موتور را یاد بگیریم.
- فرض کنید می‌خواهیم اطالاعات مربوط به دانشجویان را نگهداری کنیم، پس یک index به نام student می‌سازیم.
+ فرض کنید می‌خواهیم اطلاعات مربوط به دانشجویان را نگهداری کنیم، پس یک index به نام student می‌سازیم.
 <div align="left" dir = "ltr">
  
 ```
 PUT student
-# response => {"acknowledged": true}
+# response => {
+  "acknowledged": true,
+  "shards_acknowledged": true,
+  "index": "student"
+}
 ```
 </div>
 حال داده های زیر را که لزوما Key های یکسانی ندارند را می‌توانیم به این Index اضافه کنیم.
@@ -118,7 +122,31 @@ POST student/_doc/5
  
 ```
 GET /_all/_search?q=university:tehran 
+# result =>
+  {
+...
+    "hits": [
+      {
+        "_index": "student",
+        "_id": "3",
+        "_score": 0.2876821,
+        "_source": {
+          "f_name": "Mona",
+          "l_name": "Jamshidi",
+          "student_number": 90909090,
+          "department": "CS",
+          "gender": "female",
+          "university": "Tehran"
+...
 ```
 </div>
  
+ حال که با کلیت کار آشنا شدیم در ادامه به توضیح مفاهیم اصلی Elasticsearch می‌پردازیم.
+ 
+ ## 4 عنصر اصلی
+ در این بخش یه معرفی چهار مفهوم Cluster، Node، Index , shard می‌پردازیم. 
+ <br>
+ مثال ساده‌ی بالا را در نظر بگیرید. در ابتدا که وارد کنسول برنامه شدیم یک Node توسط elasticsearch ساخته شد. یک Node نیاز به یک Cluster یا شاخه دارد تا عضو آن شود، پس اگر تعریف نکرده باشیم که نکردیم خودش یکی می‌سازد. در ادامه ما یک index برای دانشجو ساختیم که اگر نمی‌ساختیم و مستقیما اطلاعات را POST می‌کردیم نیز یک index ساخته می‌شد.با ساخته شدن هر index تعدادی shard به وجود می‌آید که نگهدارنده‌ی داده‌های ما هستند. به طور پیشفرض 5 shard ساخته شده. shard ها کوچکترین عنصر موتور ما هستند و وجود تعدادی از آن‌ها به پردازش موازی کمک می‌کند.
+![My Image](BuildingBlocks.png)
+
 </div>
