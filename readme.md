@@ -153,7 +153,7 @@ GET /_all/_search?q=university:tehran
  ## کار با Index
  در قسمت قبل با shard و replica آشنا شدیم. در این بخش به‌کارگیری آن‌ها در ساخت index را بررسی می‌کنیم.
  <br>
- به دستور زیر می‌توان یک index از فیلم‌های سینمایی با 8 تا shard و 2 تا replica ایجاد کرد.
+ با دستور زیر می‌توان یک index از فیلم‌های سینمایی با 8 تا shard و 2 تا replica ایجاد کرد.
  
  <div align="left" dir = "ltr">
  
@@ -169,4 +169,112 @@ PUT movies
 }
 ```
 </div>
+دریافت اطلاعات کلی index ساخته شده را با دستور زیر انجام می‌دهیم.
+  <div align="left" dir = "ltr">
+ 
+```
+GET movies
+# results => {
+   ...
+   "number_of_shards": "8",
+    "provided_name": "movies",
+    "creation_date": "1676183104138",
+    "number_of_replicas": "2",
+    "uuid": "n52sOXtiTgiuntfq03ePWg",
+   ...
+   }
+```
+</div>
+برای حذف کردن یک index هم داریم:
+  <div align="left" dir = "ltr">
+ 
+```
+DELETE movies
+```
+</div>
+ برای بررسی اینکه یک index وجود دارد یا خیر درخواست زیر را می‌فرستیم. اگر نتیجه کد 200 بود یعنی index یافت شده و در غیر این صورت پیغام 404 مشاهده می‌شود.
+   <div align="left" dir = "ltr">
+ 
+```
+HEAD movies
+#rsults => {
+  "statusCode": 404,
+  "error": "Not Found",
+  "message": "404 - Not Found"
+}
+```
+</div>
+ گاهی نیز  نمی‌خواهیم index را حذف کنیم و فقط دسترسی نوشتن و خواندن از آن را قطع کنیم که با درخواست‌های زیر امکان‌پذیر است.
+<div align="left" dir = "ltr">
+ 
+```
+POST /movies/_close
+ 
+POST /movies/_open
+```
+</div> 
+ برای دسترسی به index با چند نام از مفهوم Aliasing استفاده می‌کنیم.
+ <div align="left" dir = "ltr">
+ 
+```
+POST /_aliases
+{
+ "actions" : [
+ { "add" : { "index" : "movies", "alias" : "films" } }
+ ]
+}
+ 
+POST /_aliases
+{
+ "actions" : [
+ { "remove" : { "index" : "movies", "alias" : "films" } }
+ ]
+}
+```
+</div> 
+ 
+ ## کار با cluster و node
+ در این قسمت به API های مربوط به cluster و node می‌پردازیم.
+
+<br>
+مهمترین API های cluster مربوطه به وضعیت آن است.
+ 
+ <br>
+ برای بررسی سلامت cluster از دستور زیر استفاده می‌کنیم.
+  <div align="left" dir = "ltr">
+ 
+```
+GET _cluster/health
+```
+</div> 
+ در پاسخ دریافتی عبارت status با سه رنگ سبز، زرد و قرمز مقداردهی می‌شود. سبز به معنی این است که shard ی وجود ندارد که به Index ی اختصاص نیافته باشد، زرد نیز همین مورد را درباره‌ی replica ها بررسی می‌کند و در غیر این صورت وضعیت قرمز خواهد بود.
+ <br>
+ برای دریافت تمامی اطلاعات دیگر نیز می‌توان از دستورات زیر استفاده کرد.
+   <div align="left" dir = "ltr">
+ 
+```		
+GET /_cluster/state
+GET /_cluster/stats
+```
+</div> 
+ 
+ اما درباره‌ی Node اگر بخواهیم ببینیم از هر کدام چندبار و چه موقع استفاده شده است از دستور زیر استفاده می‌کنیم. در قسمت timestamps زمانی که این node مورد ایجاد را نشان داده و Since زمانی که دیتایی را نگه داشته را نشان می‌دهد.search_action هم تعداد دفعات رجوع به این node را نشان می‌دهد.
+ .
+   <div align="left" dir = "ltr">
+ 
+```		
+GET _nodes/usage
+#results => "nodes": {
+    "pQHNt5rXTTWNvUgOrdynKg": {
+      "timestamp": 1492553961812, 
+      "since": 1492553906606, 
+      "rest_actions": {
+        "nodes_usage_action": 1,
+        "create_index_action": 1,
+        "document_get_action": 1,
+        "search_action": 19, 
+        "nodes_info_action": 36
+      },
+```
+</div> 
 </div>
