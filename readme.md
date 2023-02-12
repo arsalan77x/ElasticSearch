@@ -277,7 +277,9 @@ GET _nodes/usage
       },
 ```
 </div> 
- 
+ ## Search API
+ این نوع درخواست را با GET می‌فرستیم و سپس همانطور که در مثال زیر آمده index های موردنظر یا_all_ را قرار می‌دهیم. بعد از اسلش کلیدواژه‌ی serach_ را داریم که نوع API را تعیین می‌کند و بعد از علامت سوال یک سری paramter داریم که در جدول زیر تمامی آن‌ها با کاربردشان آمده‌اند. 
+  ![My Image](search.png)
  ## Query
  از مهمترین بخش‌های کار با پایگاه‌داده‌ها Qiery زدن است که در elasticsearch از دو نوع leaf query و compound query است.
  ![My Image](queries.png)
