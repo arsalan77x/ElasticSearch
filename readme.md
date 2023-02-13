@@ -418,9 +418,7 @@ buckets_path = <AGG_NAME>[<AGG_SEPARATOR>,<AGG_NAME>]*[<METRIC_SEPARATOR>, <METR
 ```
 </div>  
 
-## Query
- از مهمترین بخش‌های کار با پایگاه‌داده‌ها Query زدن می‌باشد که در elasticsearch از دو نوع leaf query و compound query است.
- ![My Image](queries.png)
+
     
 ## منابع
 
